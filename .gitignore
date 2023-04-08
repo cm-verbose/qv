@@ -1,0 +1,7 @@
+/target
+
+# terminal command
+run.cmd
+
+# linter config 
+.rustfmt.toml

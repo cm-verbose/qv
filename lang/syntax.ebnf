@@ -1,0 +1,104 @@
+
+(* 
+
+                                        SECTION I : DATA TYPES
+
+*)
+
+(* A digit *)
+digit ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+(* 
+   Defines the "number" rule, a sequence of digits;  
+   Examples:
+   - 594
+   - 1_192
+   - 382_927_927
+ *)
+
+number ::= digit 
+    | digit digit* 
+    | digit digit digit* "_" digit digit digit* 
+    | digit digit digit*;
+
+(* 
+    [] indicates optional elements (zero or once), 
+    {} indicates can appear one or more times ;
+*)
+
+(*
+    Defines the "integer" rule, any integer type; 
+    Examples 
+    - 23
+    - -389_935
+    - 594_392_439
+*)
+
+integer ::= ["-"] number;
+
+(* 
+    Defines the "float" rule, any float type; 
+    Examples 
+    - 43.00
+    - -438.439_392
+    - -4_293.343_925
+*)
+float ::= ["-"] number "." number;
+
+(* Boolean type: Either true or false *)
+boolean ::= "true" 
+    | "false";
+
+unicode_char ::= /* any valid unicode character */ *;
+
+(* 
+    Defines the "char" rule, any valid unicode character,
+    it excludes single quotes ( ' ) and they must be escaped 
+    for use ( \'); 
+    Examples 
+    - 'a' 
+    - 'ж'
+    - '驤'
+ *)
+char ::= "'" unicode_char "'";
+
+(* 
+    Defines the "string" rule, any valid unicode sequence of 
+    characters sourrounded by double quotes, it excludes double
+    quotes ( " ) and must be escaped for use ( \");
+*)
+
+string ::= '"' unicode_char {unicode_char} '"';
+
+(*
+    Arrays : can be homogeneous or heterogeneous by type (uniform 
+    in the type of values it holds or not);
+*)
+
+value ::= integer | float | boolean | char | string;
+values ::= value | value "," values;
+array ::= "[" values "]";
+
+
+(* 
+
+                                        SECTION II : KEYWORDS
+
+*)
+
+DECLARATION_VARIABLE           ::= "let"      ; (* declares a mutable variable *)
+DECLARATION_CONSTANT           ::= "const"    ; (* declares an immutable variable*)
+CONDITIONAL_EXPRESSION_IF      ::= "if"       ; (* declares a conditional statement *)
+CONDITIONAL_EXPRESSION_ELSE_IF ::= "elif"     ; (* adds a condition to a conditional statement *)
+CONDITIONAL_EXPRESSION_ELSE    ::= "else"     ; (* adds a final condition to a conditional statement *)
+FUNCTION_DECLARATION           ::= "fn"       ; (* declares a function *)
+FUNCTION_RETURN_STATEMENT      ::= "out"      ; (* returns a value from a function *)
+LOOP_WHILE                     ::= "while"    ; (* declares a loop, that runs only if the condition is true*)
+LOOP_FOR                       ::= "for"      ; (* declares a loop, that runs with a given iterator *)
+BREAK                          ::= "break"    ; (* exits early from a loop, thus ending an iteration of a loop *)
+CONTINUE                       ::= "continue" ; (* exits early from an iteration of a loop, but continues iterating *)
+
+
+
+
+
